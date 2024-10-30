@@ -1,0 +1,10 @@
+{
+    "name": "jc/event_management",
+    "description": "event messages",
+    "autoload": {
+        "psr-4": {
+            "Jc\\EventManagement\\": "src/"
+        }
+    },
+    "require": {}
+}
