@@ -6,13 +6,13 @@ class Client {
     private $serverAddress;
     private $port;
     private $database;
-    private $userId; // Store the current user's ID
+    private $userId;
 
     public function __construct($serverAddress, $port, Database $database, $userId) {
         $this->serverAddress = $serverAddress;
         $this->port = $port;
         $this->database = $database;
-        $this->userId = $userId; // Store user ID on instantiation
+        $this->userId = $userId; 
     }
 
     public function connect() {
@@ -33,7 +33,6 @@ class Client {
 
     // Validate the user ID
     public function isUserIdValid($userId = null) {
-        // Use the current user ID if none is provided
         if ($userId === null) {
             $userId = $this->userId;
         }
@@ -41,7 +40,6 @@ class Client {
         return $event->isUserIdValid($userId);
     }
 
-    // Getter for user ID
     public function getUserId() {
         return $this->userId;
     }

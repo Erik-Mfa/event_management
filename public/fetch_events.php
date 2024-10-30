@@ -1,5 +1,4 @@
 <?php
-// fetch_events.php
 session_start();
 require_once '../src/Database.php';
 require_once '../src/Event.php';
@@ -7,7 +6,6 @@ require_once '../src/Event.php';
 use Jc\EventManagement\Database;
 use Jc\EventManagement\Event;
 
-// Initialize database connection
 $database = new Database();
 $dbConnection = $database->getConnection();
 

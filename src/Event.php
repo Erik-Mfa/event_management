@@ -8,8 +8,8 @@ class Event {
 
 
     public function __construct(Database $database, $userId) {
-        $this->database = $database; // Store the database connection
-        $this->user_id = $userId; // Store user ID
+        $this->database = $database; 
+        $this->user_id = $userId; 
     }
 
     public function create($message) {
@@ -21,19 +21,18 @@ class Event {
         $stmt->bindParam(':user_id', $this->user_id);
     
         if (!$stmt->execute()) {
-            // Output error details if execution fails
-            $errorInfo = $stmt->errorInfo(); // Get error info
+            $errorInfo = $stmt->errorInfo(); 
             echo "SQL Error: " . htmlspecialchars($errorInfo[2]); // Output the error
-            return false; // Indicate failure
+            return false; 
         }
         
-        return true; // Indicate success
+        return true;
     }
     
 
     public function read() {
         if ($this->user_id === null) {
-            $query = "SELECT * FROM events"; // Fetch all events if user_id is null
+            $query = "SELECT * FROM events"; 
         } else {
             $query = "SELECT * FROM events WHERE user_id = :user_id";
         }
@@ -56,11 +55,10 @@ class Event {
 
     public function isUserIdValid($userId = null) {
         if ($userId === null) {
-            $userId = $this->user_id; // Use $this->user_id
+            $userId = $this->user_id; 
         }
     
-        // Check the correct column name based on your database schema
-        $query = "SELECT COUNT(*) FROM users WHERE UserId = :user_id"; // Update with the correct column name
+        $query = "SELECT COUNT(*) FROM users WHERE UserId = :user_id"; 
         $stmt = $this->database->getConnection()->prepare($query);
         $stmt->bindParam(':user_id', $userId);
         $stmt->execute();

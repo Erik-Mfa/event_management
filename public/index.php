@@ -1,8 +1,6 @@
 <?php
-// Start a new session if needed
 session_start();
 
-// Database connection and class imports
 require_once '../src/Database.php';
 require_once '../src/Client.php';
 require_once '../src/Event.php';
@@ -11,23 +9,20 @@ use Jc\EventManagement\Database;
 use Jc\EventManagement\Client;
 use Jc\EventManagement\Event;
 
-// Initialize database connection
 $database = new Database();
 $dbConnection = $database->getConnection();
 
-// Initialize client without a user ID for sending messages
 $client = new Client('localhost', 8000, $database, null);
 $client->connect();
 
 // Handle AJAX form submission for event creation
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Validate user ID before creating the event
     $userId = $_POST['user_id'];
 
     // Check if user ID is valid
     if (!$client->isUserIdValid($userId)) {
         echo json_encode(["success" => false, "message" => "User ID $userId is not valid."]);
-        exit; // Exit to prevent further execution
+        exit; 
     }
 
     // Create a new Event instance
@@ -41,7 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         echo json_encode(["success" => false, "message" => "Unable to create event."]);
     }
-    exit; // Prevent further execution after handling AJAX request
+    exit; 
 }
 
 // Fetch all events to display (this is only run on the initial page load)
@@ -66,7 +61,6 @@ $stmt = $eventList->read();
         <li><strong>View Events:</strong> All created events will be displayed below the form. You can see the event name, date, message, and user ID associated with each event.</li>
     </ol>
     <style>
-        /* Add some basic styling for better presentation */
         body {
             font-family: Arial, sans-serif;
         }
@@ -99,7 +93,7 @@ $stmt = $eventList->read();
         <button type="submit">Create Event</button>
     </form>
 
-    <div id="messageArea"></div> <!-- Place to display success/error messages -->
+    <div id="messageArea"></div> 
 
     <h1>Event List</h1>
     <div class="event-list">
@@ -116,18 +110,18 @@ $stmt = $eventList->read();
     <script>
     $(document).ready(function() {
         $('#eventForm').on('submit', function(event) {
-            event.preventDefault(); // Prevent the default form submission
+            event.preventDefault(); 
             
             var formData = $(this).serialize(); // Serialize the form data
             
             $.ajax({
                 type: 'POST',
-                url: 'index.php', // Submit to the same page
+                url: 'index.php',
                 data: formData,
                 success: function(response) {
-                    $('#messageArea').html(response); // Display the response
-                    $('#eventForm')[0].reset(); // Reset the form after submission
-                    loadEvents(); // Load events to refresh the list
+                    $('#messageArea').html(response); 
+                    $('#eventForm')[0].reset(); 
+                    loadEvents(); 
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
                     console.error('AJAX Error:', textStatus, errorThrown);
@@ -137,10 +131,9 @@ $stmt = $eventList->read();
         });
     });
 
-    // Function to load events
     function loadEvents() {
         $.ajax({
-            url: 'fetch_events.php', // Create a separate PHP file to fetch events
+            url: 'fetch_events.php', 
             method: 'GET',
             success: function(data) {
                 $('.event-list').html(data); // Update the event list
