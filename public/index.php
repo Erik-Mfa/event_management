@@ -55,6 +55,7 @@ $stmt = $eventList->read();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="styles.css"> 
     <title>Create Event</title>
     <h2>How to Use the App</h2>
     <ol>
@@ -84,7 +85,7 @@ $stmt = $eventList->read();
 </head>
 <body>
 
-    <h1>Create Event</h1>
+    <h1>Send Message</h1>
     <form id="eventForm" action="index.php" method="POST">
         <label for="name">Event Name:</label>
         <input type="text" id="name" name="name" required>
