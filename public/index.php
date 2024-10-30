@@ -60,6 +60,7 @@ $stmt = $eventList->read();
         <li><strong>Submit the Form:</strong> Click the "Create Event" button to submit your event. A success or error message will be displayed based on the outcome.</li>
         <li><strong>View Events:</strong> All created events will be displayed below the form. You can see the event name, date, message, and user ID associated with each event.</li>
     </ol>
+    <button onclick="openHelp()">Help</button>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -77,8 +78,15 @@ $stmt = $eventList->read();
         }
     </style>
 </head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Event Messaging App</title>
+    <link rel="stylesheet" href="assets/styles.css"> 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
 <body>
-
     <h1>Send Message</h1>
     <form id="eventForm" action="index.php" method="POST">
         <label for="name">Event Name:</label>
@@ -106,6 +114,7 @@ $stmt = $eventList->read();
             </div>
         <?php endwhile; ?>
     </div>
+
 
     <script>
     $(document).ready(function() {
@@ -143,7 +152,11 @@ $stmt = $eventList->read();
             }
         });
     }
-    </script>
 
+    function openHelp() {
+        window.open('help.html', '_blank'); // Opens the help file in a new tab
+    }
+    </script>
 </body>
 </html>
+
